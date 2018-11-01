@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="todoMapper">
+	<insert id="addTodo" parameterType="todo">
+	<!-- 일정을 넣는 쿼리문 -->
+		INSERT INTO
+		TODO(TODONO,TODO,TODODATE,TODOCOMPL,USERNO)
+		VALUES(
+			todo_seq.nextVal,
+			nvl(#{todo},' '),
+			#{todoDate},
+			'1',
+			#{userNo}
+		)
+	
+	</insert>
+	<delete id="removeTodo" parameterType="string">
+	<!-- 일정을 삭제하는 쿼리문 -->
+		DELETE
+		FROM TODO
+		WHERE TODONO=#{todoNo}
+	</delete>
+	<update id="updateTodo" parameterType="todo">
+	<!-- 일정을 수정하는 쿼리문 -->
+		UPDATE TODO
+		SET TODO=#{todo},
+			TODODATE=#{todoDate}
+		WHERE TODONO=#{todoNo}
+	</update>
+	<select id="getTodo" parameterType="string" resultType="todo">
+	<!-- 하나의 일정을 출력하는 쿼리문 -->
+	SELECT
+		TODONO AS TODONO,
+		TODO AS TODO,
+		TODODATE AS TODODATE,
+		TODOCOMPL AS TODOCOMPL
+		FROM TODO
+		WHERE TODONO = #{todoNo}
+		ORDER BY TODONO
+	</select>
+	<select id="getTodoList" resultType="todo">
+	<!-- 여러개의 일정을 출력하는 쿼리문 -->
+		SELECT
+		TODONO AS TODONO,
+		TODO AS TODO,
+		TODODATE AS TODODATE,
+		TODOCOMPL AS TODOCOMPL
+		FROM TODO
+		ORDER BY TODONO
+	</select>
+	<select id="getTodoListUsers" parameterType="string" resultType="todo">
+	<!-- 유저 한명의 일정을 출력하는 쿼리문 -->
+	SELECT
+		TODONO AS TODONO,
+		TODO AS TODO,
+		TODODATE AS TODODATE,
+		TODOCOMPL AS TODOCOMPL,
+		USERNO AS USERNO
+		FROM TODO
+		WHERE USERNO= #{value}
+		ORDER BY TODONO
+	</select>
+</mapper>

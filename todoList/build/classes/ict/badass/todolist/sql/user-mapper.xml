@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="userMapper">
+	<insert id="addUser" parameterType="user">
+	<!-- 유저를 넣는 쿼리문 -->
+	INSERT INTO 
+	USERS(USERNO,EMAIL,USERID,PASSWORD)
+	VALUES(user_seq.nextVal,
+		#{email},
+		#{userId},
+		#{password}
+		)
+	
+	 
+	
+	</insert>
+	<delete id="removeUser" parameterType="string">
+	<!-- 유저를 지우는 쿼리문 -->
+	DELETE
+		FROM USERS
+		WHERE USERNO=#{userNo}
+	
+	</delete>
+	<update id="updateUser" parameterType="user">
+	<!-- 유저를 수정하는 쿼리문 -->
+	UPDATE USERS
+		SET PASSWORD=#{password}
+		WHERE USERNO=#{userNo}
+	
+	</update>
+	<select id="getUser" parameterType="user" resultType="user">
+	<!-- 하나의 유저를 출력하는 쿼리문 -->
+	SELECT 
+		USERNO AS USERNO,
+		EMAIL AS EMAIL,
+		USERID AS USERID,
+		PASSWORD AS PASSWORD
+	FROM USERS
+	WHERE USERNO LIKE #{userNo}
+	ORDER BY USERNO
+	</select>
+
+	
+	<select id="getUserList" resultType="user">
+	<!-- 여러명의 유저를 출력하는 쿼리문 -->
+	SELECT 
+		USERNO AS USERNO,
+		EMAIL AS EMAIL,
+		USERID AS USERID,
+		PASSWORD AS PASSWORD
+	FROM USERS
+	ORDER BY USERNO
+	</select>
+
+</mapper>

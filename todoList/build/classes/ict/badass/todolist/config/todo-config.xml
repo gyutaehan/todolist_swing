@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  <configuration>
+  
+  <properties resource="ict/badass/todolist/config/conn.properties">
+  <property name="" value=""/>
+  </properties>
+  
+<!--   <settings>
+	<setting name="jdbcTypeForNull" value="NULL"/>
+</settings> -->
+  
+  <typeAliases>
+  	<typeAlias type="ict.badass.todolist.vo.Todo" alias="todo"/>
+  	<typeAlias type="ict.badass.todolist.vo.User" alias="user"/>
+  </typeAliases>
+  
+  <environments default="TODOEVIRO">
+  	<environment id="TODOEVIRO">
+  		<transactionManager type="JDBC"></transactionManager>
+  		<dataSource type="UNPOOLED">
+  			<property name="driver" value="${JDBC.driver}"/>
+  			<property name="url" value="${JDBC.url}"/>
+  			<property name="username" value="${JDBC.username}"/>
+  			<property name="password" value="${JDBC.password}"/>
+  		</dataSource>
+  	</environment>
+  </environments>
+  
+  <mappers>
+     <mapper resource="ict/badass/todolist/sql/todo-mapper.xml" />
+     <mapper resource="ict/badass/todolist/sql/user-mapper.xml" />
+  </mappers>
+  
+  </configuration>
